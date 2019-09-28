@@ -27,7 +27,26 @@ ul {
 }
 
 form {
+    max-width: fit-content;
+}
+
+form div {
     text-align: left;
+    padding: 10px;
+}
+
+.submitBtn {
+    text-align: center;
+}
+
+.Table {
+    margin: 20px;
+    text-align: -webkit-center;
+}
+
+.AddForm {
+    margin: 20px;
+    text-align: center;
 }
 
 @keyframes App-logo-spin {

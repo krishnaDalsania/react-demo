@@ -8,7 +8,7 @@ export default function (state = {}, action) {
 
                 list: action.payload
             }
-        case 'ADD_USER':
+        case 'UPDATE_USER':
             console.log(action.payload)
             return {
                 list: action.payload

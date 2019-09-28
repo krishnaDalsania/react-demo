@@ -10,8 +10,7 @@ const TableBody = props => {
                 <td>{row.gender}</td>
                 <td>{row.hobbies}</td>
                 <td>{row.profile_pic}</td>
-                <td><button onClick={(index) => props.edit(row)}>Edit</button></td>
-                <td><button onClick={(index) => props.delete(row)}>Delete</button></td>
+                <td><button onClick={(index) => props.edit(row)}>Edit</button><button onClick={(index) => props.delete(row)}>Delete</button></td>
             </tr>
         );
     });

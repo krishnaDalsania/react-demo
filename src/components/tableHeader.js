@@ -9,6 +9,7 @@ const TableHeader = () => {
                 <th>Gender</th>
                 <th>Hobby</th>
                 <th>Profile</th>
+                <th>Action</th>
             </tr>
         </thead>
     );

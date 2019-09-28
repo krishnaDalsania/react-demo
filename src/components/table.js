@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import TableHeader from './tableHeader';
 import TableBody from './tableBody';
-import { getAllUsers } from '../actions';
+import './table.css'
+import { getAllUsers, updateUserList } from '../actions';
 import { connect } from 'react-redux'
 class Table extends Component {
     state = {
@@ -45,12 +46,20 @@ class Table extends Component {
         await this.props.getAllUsers(this.state.users)
     }
 
+    delete = async (data) => {
+        console.log('delete id ', data.id);
+        let userData = this.props.userList;
+        userData = userData.filter((user) => user.id !== data.id)
+        await this.props.updateUserList(userData)
+    }
+
     render() {
         const { edit } = this.props;
+        console.log('table render call')
         return (
             <table>
                 <TableHeader />
-                {this.props.userList && <TableBody userData={this.props.userList} edit={edit} delete={this.props.delete} />}
+                {this.props.userList && <TableBody userData={this.props.userList} edit={edit} delete={this.delete} />}
             </table>
         );
     }
@@ -61,7 +70,8 @@ const mapStateToProps = (allUsers) => ({
 });
 
 const mapDispatchToProps = {
-    getAllUsers
+    getAllUsers,
+    updateUserList
 };
 
 export default connect(

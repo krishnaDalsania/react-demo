@@ -1,5 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import { updateUserList } from '../actions';
 
+var _ = require('lodash');
 class Add extends React.Component {
     state = {
         name: 'dfgd',
@@ -24,8 +27,19 @@ class Add extends React.Component {
         ]
     }
 
-    handleSubmit = (event) => {
-        this.props.handleSubmit(event, this.state)
+    handleSubmit = async (event, data) => {
+        event.preventDefault();
+        // console.log('data', data);
+        let userData = this.props.userList
+        // console.log('userData', userData);
+        if (data.id) {
+            let editDataIndex = userData.findIndex((user) => user.id === data.id);
+            userData[editDataIndex] = { id: data.id, name: data.name, job: data.job, gender: data.gender, hobbies: data.hobby, profile_pic: data.profile_pic };
+        } else {
+            let maxId = _.maxBy(userData, function (o) { return o.id; });
+            userData.push({ id: maxId.id + 1, name: data.name, job: data.job, gender: data.gender, hobbies: data.hobby, profile_pic: data.profile_pic })
+        }
+        await this.props.updateUserList(userData)
         this.setState({ name: '', job: '', id: '', profile_pic: '' })
     }
 
@@ -123,8 +137,8 @@ class Add extends React.Component {
                         <br />
                         <input type="file" name="file" onChange={this.onChangeHandler} />
                     </div>
-                    <div>
-                        <input type="submit" value="Submit" onClick={(event) => this.handleSubmit(event)} />
+                    <div className="submitBtn">
+                        <input type="submit" value="Submit" onClick={(event) => this.handleSubmit(event, this.state)} />
                     </div>
                 </form>
             </div>
@@ -132,5 +146,19 @@ class Add extends React.Component {
     }
 
 }
+// export default Add;
 
-export default Add;
+const mapStateToProps = (allUsers) => ({
+    userList: allUsers.list
+});
+
+const mapDispatchToProps = {
+    updateUserList
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+    null,
+    { forwardRef: true }
+)(Add);

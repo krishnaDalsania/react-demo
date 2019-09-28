@@ -2,17 +2,17 @@
 
 
 export const getAllUsers = users => async dispatch => {
-    console.log('=====', users)
+    console.log('=====data inside action', users)
     dispatch({
         type: 'GET_USER',
         payload: users
     })
 }
 
-export const addUser = users => async dispatch => {
-    console.log('=====', users)
+export const updateUserList = users => async dispatch => {
+    console.log('=====data inside action', users)
     dispatch({
-        type: 'ADD_USER',
+        type: 'UPDATE_USER',
         payload: users
     })
 }
